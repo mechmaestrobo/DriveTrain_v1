@@ -1,0 +1,9 @@
+Compiled src/auton.cpp [ERRORS]
+arm-none-eabi-g++: error: unrecognized command-line option '--std=gnu++26'; did you mean '--std=gnu++20'?
+ERROR - pros.cli.build:make - Failed to make project: Exit Code 2 - pros-cli version:3.5.6
+PROS-CLI Version:  3.5.6
+PROS-Kernel Version: 4.2.2
+╭─ Error ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Failed to build                                                                                                            │
+╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+                                                                                                                              
