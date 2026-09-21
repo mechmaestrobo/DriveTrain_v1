@@ -1,9 +1,9 @@
 #include "main.h"
 #include "pros/misc.h"
-#include "drive.h"
-#include "devices.h"
-#include "config.h"
-#include "auton.h"
+#include "drive.hpp"
+#include "devices.hpp"
+#include "config.hpp"
+#include "auton.hpp"
 #include <cmath>
 #include <algorithm>
 //will be added later

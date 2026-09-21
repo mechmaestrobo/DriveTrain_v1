@@ -1,23 +1,23 @@
 #include "main.h"
 #include "pros/misc.h"
-#include "drive.h"
-#include "devices.h"
-#include "config.h"
+#include "drive.hpp"
+#include "devices.hpp"
+#include "config.hpp"
 #include <algorithm>
 #include <cmath>
 
 void initializeDrivetrain() {
-    leftMotors.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
-    rightMotors.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
-    leftMotors.set_gearing(pros::E_MOTOR_GEAR_GREEN);
-    rightMotors.set_gearing(pros::E_MOTOR_GEAR_GREEN);
+    leftMotors.set_brake_mode(pros::v5::MotorBrake::coast);
+    rightMotors.set_brake_mode(pros::v5::MotorBrake::coast);
+    leftMotors.set_gearing(pros::v5::MotorGears::green);
+    rightMotors.set_gearing(pros::v5::MotorGears::green);
 }
 void runDriveTrain(){
     //read inputs
-    double joystickForward = static_cast<double>(controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y)) / 127;
-    double joystickTurn = static_cast<double>(controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X)) / 127;
+    double joystickForward = static_cast<double>(controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y)) / 127.0;
+    double joystickTurn = static_cast<double>(controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X)) / 127.0;
     //smooth joystick deadzone. The deadzone accounts for drift, however it jerks right when it goes past the deadzone.
-    //This stretches the -1 to -0.1 range and 0.1 to 1 range back to -1 to 1, so it you have full control of the spee
+    //This stretches the -1 to -0.1 range and 0.1 to 1 range back to -1 to 1, so it you have full control of the speed
     if (std::abs(joystickForward) < .1){
         joystickForward = 0;
     }
