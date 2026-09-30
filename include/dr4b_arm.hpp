@@ -1,6 +1,7 @@
-#pragma once // Prev
+#pragma once
 
 #include "main.h"
+#include "dr4b_arm.hpp"
 #include <vector>
 
 class DR4B_ARM {
@@ -14,22 +15,17 @@ class DR4B_ARM {
     void stop();
     void reset();
     void set_target(double new_target);
-
-  private:
-    
-    void PID();
-
-    
-    int location;
+    double kp;
+    double ki;
+    double kd;
     double target_position;
     double position;
+  private:
+    void PID();
+    
     double prev_error;
     double power;
     double error;
     double integral_sum;
-
-    // Constants (Tune these for your specific robot!)
-    const double kp = 0.8;
-    const double ki = 0.0;
-    const double kd = 0.1;
+    
 };

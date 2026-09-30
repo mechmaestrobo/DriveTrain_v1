@@ -4,12 +4,12 @@
 #include <cmath>
 #include <numeric>
 
-double kp = 0.0;
-double ki = 0.0;
-double kd = 0.0;
+
 
 DR4B_ARM::DR4B_ARM(){
-    location = 0;
+    kp = 0.0;
+    ki = 0.0;
+    kd = 0.0;
     target_position = 0.0;
     position = 0.0;
     prev_error = 0.0;
@@ -21,7 +21,7 @@ DR4B_ARM::DR4B_ARM(){
 
 void DR4B_ARM::initialize() {
     dr4b.set_gearing(pros::v5::MotorGears::green);
-    dr4b.set_brake_mode(pros::v5::MotorBrake::coast);
+    dr4b.set_brake_mode(pros::v5::MotorBrake::hold);
     dr4b.set_encoder_units(pros::v5::MotorUnits::degrees);
     dr4b.tare_position_all();
 }
@@ -30,7 +30,12 @@ void DR4B_ARM::run_tick() {
     std::vector<double> positions = dr4b.get_position_all();
     
     double sum = std::accumulate(positions.begin(), positions.end(), 0.0);
-    position = sum / positions.size();
+    if(positions.empty()){
+        position = 0.0;
+    }
+    else {
+        position = sum / positions.size();
+    }
     
     PID();
     dr4b.move_velocity(power);

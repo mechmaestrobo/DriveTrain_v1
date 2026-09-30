@@ -8,7 +8,7 @@
 #include "dr4b_arm.hpp"
 #include <algorithm>
 
-DR4B_ARM dr4b_lift;
+
 
 void telemetry_worker(void* param){
 	while (true){
@@ -38,30 +38,34 @@ void receiveButtons(){
 	}
 	velMul = std::clamp(velMul, 0.2, 1.0);
 	if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)){
-		kp += .05;
+		dr4b_lift.kp += .1;
 	}
 	if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2)){
-		kp -= .05;
+		dr4b_lift.kp -= .1;
 	}
 	if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_X)){
-		ki += .05;
+		dr4b_lift.ki += .1;
 	}
 	if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B)){
-		ki -= .05;
+		dr4b_lift.ki -= .1;
 	}
 	if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_LEFT)){
-		kd += .05;
+		dr4b_lift.kd -= .1;
 	}
 	if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT)){
-		kd -= .05;
+		dr4b_lift.kd += .1;
 	}
 	if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
-        dr4b_lift.set_target(500.0);
+        dr4b_lift.set_target(400.0);
     }
 	else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
         dr4b_lift.set_target(0.0);
 	}
-    
+    // Inside main.cpp receiveButtons()
+	dr4b_lift.kp = std::max(0.0, dr4b_lift.kp);
+	dr4b_lift.ki = std::max(0.0, dr4b_lift.ki);
+	dr4b_lift.kd = std::max(0.0, dr4b_lift.kd);
+
 	/*if(controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)){
 		dr4b_lift.use_claw();
 	}*/
@@ -73,6 +77,6 @@ void opcontrol() {
 		receiveButtons();
 		runDriveTrain();
 		dr4b_lift.run_tick();
-		pros::delay(20);
+		pros::delay(delay_ms);
 	}
 }

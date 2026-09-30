@@ -1,2 +1,3 @@
 #pragma once
-void runAuton(void);
+#include "lemlib/api.hpp"
+void runAuton(void);  

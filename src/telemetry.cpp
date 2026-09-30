@@ -3,6 +3,7 @@
 #include "devices.hpp"
 #include "telemetry.hpp"
 #include "config.hpp"
+#include "dr4b_arm.hpp"
 #include <algorithm>
 #include <numeric>
 #include <vector>
@@ -19,7 +20,7 @@ void performReading(){
     double rightMax = *std::max_element(rightMotorTemps.begin(), rightMotorTemps.end());
     double max = std::max(leftMax, rightMax);
     
-    controller.print(0, 0, "Temp: %.1f C", max);
+    controller.print(0, 0, "dp %.1f", dr4b_lift.position);
     
     if (max >= 55.0 && (currentTime - lastRumbleTime > 10000)) {
         controller.rumble("- -"); 
@@ -36,10 +37,10 @@ void performReading(){
     double totalMotors = static_cast<double>(leftSpeeds.size() + rightSpeeds.size());
     double avg_speed = (leftSum + rightSum) / totalMotors;
     
-    controller.print(1, 0, "Speed: %.0f RPM", avg_speed);
+    controller.print(1, 0, "S %.0f", avg_speed);
     
     pros::Task::delay(50);
     
-    controller.print(2, 0, "Battery: %.0f%%", pros::battery::get_capacity());
-    controller.print(3, 0, "Kp:%.2f Ki:%.1f Kd:%.1f", kp, ki, kd);
+    //controller.print(2, 0, "Battery: %.0f%%", pros::battery::get_capacity());
+    controller.print(2, 0, "Kp:%.2f Ki:%.1f Kd:%.1f", dr4b_lift.kp, dr4b_lift.ki, dr4b_lift.kd);
 }
