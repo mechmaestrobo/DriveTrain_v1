@@ -10,6 +10,8 @@
 #include <cmath>
 
 void performReading(){
+    
+    pros::Task::delay(50);
     static int lastRumbleTime = 0;
     int currentTime = pros::millis();
     
@@ -20,7 +22,7 @@ void performReading(){
     double rightMax = *std::max_element(rightMotorTemps.begin(), rightMotorTemps.end());
     double max = std::max(leftMax, rightMax);
     
-    controller.print(0, 0, "dp %.1f", dr4b_lift.position);
+    controller.print(0, 0, "dp %.1f tp %.1f", dr4b_lift.position, dr4b_lift.target_position);
     
     if (max >= 55.0 && (currentTime - lastRumbleTime > 10000)) {
         controller.rumble("- -"); 
@@ -42,5 +44,6 @@ void performReading(){
     pros::Task::delay(50);
     
     //controller.print(2, 0, "Battery: %.0f%%", pros::battery::get_capacity());
-    controller.print(2, 0, "Kp:%.2f Ki:%.1f Kd:%.1f", dr4b_lift.kp, dr4b_lift.ki, dr4b_lift.kd);
+    controller.print(2, 0, "P:%.2f I:%.1f D:%.1f G:%.1f", dr4b_lift.kp, dr4b_lift.ki, dr4b_lift.kd, dr4b_lift.kg);
+    pros::Task::delay(50);
 }

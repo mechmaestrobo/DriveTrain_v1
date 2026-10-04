@@ -10,6 +10,7 @@ DR4B_ARM::DR4B_ARM(){
     kp = 0.0;
     ki = 0.0;
     kd = 0.0;
+    kg = 0.0;
     target_position = 0.0;
     position = 0.0;
     prev_error = 0.0;
@@ -31,10 +32,10 @@ void DR4B_ARM::run_tick() {
     
     double sum = std::accumulate(positions.begin(), positions.end(), 0.0);
     if(positions.empty()){
-        position = 0.0;
+        position = -80.0;
     }
     else {
-        position = sum / positions.size();
+        position = ((1.0/3.0)*(sum / positions.size()) - 80.0);
     }
     
     PID();
@@ -65,13 +66,13 @@ void DR4B_ARM::PID() {
     double integral = ki * integral_sum;
 
     double derivative = kd * (error - prev_error); 
+    double gravity = kg * std::cos(position * (M_PI/180.0));
+    power = proportional + integral + derivative + gravity;
     
-    power = proportional + integral + derivative;
-    
-    if (power > 200.0) {
-        power = 200.0;
-    } else if (power < -200.0) {
-        power = -200.0;
+    if (power > dr4b_motor_rpm) {
+        power = dr4b_motor_rpm;
+    } else if (power < -dr4b_motor_rpm) {
+        power = -dr4b_motor_rpm;
     }
 }
 

@@ -18,6 +18,7 @@ class DR4B_ARM {
     double kp;
     double ki;
     double kd;
+    double kg;
     double target_position;
     double position;
   private:

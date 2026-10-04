@@ -12,13 +12,15 @@
 
 void telemetry_worker(void* param){
 	while (true){
-		performReading();
 		pros::Task::delay(500);
+		performReading();
+		
 	}
 }
 
 void initialize(){
 	initializeDrivetrain();
+	controller.clear();
 	dr4b_lift.initialize();
 	controller.rumble("-");
 }
@@ -55,17 +57,23 @@ void receiveButtons(){
 	if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT)){
 		dr4b_lift.kd += .1;
 	}
+	if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)){
+		dr4b_lift.kg += .1;
+	}
+	if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)){
+		dr4b_lift.kg -= .1;
+	}
 	if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
-        dr4b_lift.set_target(400.0);
+        dr4b_lift.set_target(80.0);
     }
 	else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
-        dr4b_lift.set_target(0.0);
+        dr4b_lift.set_target(-80.0);
 	}
     // Inside main.cpp receiveButtons()
 	dr4b_lift.kp = std::max(0.0, dr4b_lift.kp);
 	dr4b_lift.ki = std::max(0.0, dr4b_lift.ki);
 	dr4b_lift.kd = std::max(0.0, dr4b_lift.kd);
-
+	dr4b_lift.kg = std::max(0.0, dr4b_lift.kg);
 	/*if(controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)){
 		dr4b_lift.use_claw();
 	}*/
