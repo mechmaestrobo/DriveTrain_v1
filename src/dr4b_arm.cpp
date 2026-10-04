@@ -21,7 +21,7 @@ DR4B_ARM::DR4B_ARM(){
 }
 
 void DR4B_ARM::initialize() {
-    dr4b.set_gearing(pros::v5::MotorGears::green);
+    dr4b.set_gearing(pros::v5::MotorGears::red);
     dr4b.set_brake_mode(pros::v5::MotorBrake::hold);
     dr4b.set_encoder_units(pros::v5::MotorUnits::degrees);
     dr4b.tare_position_all();
