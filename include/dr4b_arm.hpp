@@ -11,7 +11,7 @@ class DR4B_ARM {
     bool claw_opened;
     void initialize();
     void run_tick();
-    void use_claw();
+    
     void stop();
     void reset();
     void set_target(double new_target);

@@ -8,8 +8,8 @@
 #include <algorithm>
 //will be added later
 lemlib::Drivetrain drivetrain(&leftMotors, &rightMotors, TRACK_WIDTH, lemlib::Omniwheel::NEW_325, 333, HORIZONTAL_DRIFT);
-lemlib::TrackingWheel vertical_tracking_wheel(&vertical, WHEEL_DIAMETER, 0);//replace with horizontal distance to center
-lemlib::TrackingWheel strafe_tracking_wheel(&strafe, WHEEL_DIAMETER, 0); //replace with vertical distance to center
+lemlib::TrackingWheel vertical_tracking_wheel(&vertical, WHEEL_DIAMETER, vertical_wheel_location);
+lemlib::TrackingWheel strafe_tracking_wheel(&strafe, WHEEL_DIAMETER, strafe_wheel_location);
 lemlib::OdomSensors sensors(
 &vertical_tracking_wheel, 
 nullptr, 

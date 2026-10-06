@@ -6,6 +6,7 @@
 #include "telemetry.hpp"
 #include "pros/misc.hpp"
 #include "dr4b_arm.hpp"
+#include "intake.hpp"
 #include <algorithm>
 
 
@@ -17,6 +18,9 @@ void telemetry_worker(void* param){
 		
 	}
 }
+
+
+
 
 void initialize(){
 	initializeDrivetrain();
@@ -64,10 +68,10 @@ void receiveButtons(){
 		dr4b_lift.kg -= .1;
 	}
 	if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
-        dr4b_lift.set_target(80.0);
+        dr4b_lift.set_target(35.0);
     }
 	else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
-        dr4b_lift.set_target(-80.0);
+        dr4b_lift.set_target(-35.0);
 	}
     // Inside main.cpp receiveButtons()
 	dr4b_lift.kp = std::max(0.0, dr4b_lift.kp);

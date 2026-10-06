@@ -44,10 +44,7 @@ void DR4B_ARM::run_tick() {
     prev_error = error; 
 }
 
-/*void DR4B_ARM::use_claw() {
-    claw.set_value(!claw_opened);
-    claw_opened = !claw_opened;
-}*/
+
 
 void DR4B_ARM::stop() {
     dr4b.move_velocity(0);
