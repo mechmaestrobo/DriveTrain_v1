@@ -1,3 +1,4 @@
+//This is where driver control drivetrain is
 #include "main.h"
 #include "pros/misc.h"
 #include "drive.hpp"
@@ -5,7 +6,7 @@
 #include "config.hpp"
 #include <algorithm>
 #include <cmath>
-
+double velMul = 1;
 void initializeDrivetrain() {
     leftMotors.set_brake_mode(pros::v5::MotorBrake::coast);
     rightMotors.set_brake_mode(pros::v5::MotorBrake::coast);

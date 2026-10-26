@@ -1,3 +1,5 @@
+//the control center. all the initialization happens,edit
+//TODO: upload does not work on mine(sharan) end. issues with positional reading, lemlib initialization however no auton code written, pid not tuned. def need a lot of work
 #include "main.h"
 #include "devices.hpp"
 #include "auton.hpp"
@@ -8,7 +10,7 @@
 #include "dr4b_arm.hpp"
 #include "intake.hpp"
 #include <algorithm>
-
+#include "buttons.hpp"
 
 
 void telemetry_worker(void* param){
@@ -27,63 +29,19 @@ void initialize(){
 	controller.clear();
 	dr4b_lift.initialize();
 	controller.rumble("-");
+	dr4b_lift.set_target(-40.0);
+	pros::delay(50);
 }
 
 void competition_initialize() {}
-
 void autonomous() {
     // runAuton();
 }
 
-void receiveButtons(){
-    if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP)) {
-        velMul += 0.2;
-    }
-    if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN)) {
-        velMul -= 0.2;
-	}
-	velMul = std::clamp(velMul, 0.2, 1.0);
-	if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)){
-		dr4b_lift.kp += .1;
-	}
-	if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2)){
-		dr4b_lift.kp -= .1;
-	}
-	if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_X)){
-		dr4b_lift.ki += .1;
-	}
-	if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B)){
-		dr4b_lift.ki -= .1;
-	}
-	if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_LEFT)){
-		dr4b_lift.kd -= .1;
-	}
-	if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT)){
-		dr4b_lift.kd += .1;
-	}
-	if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)){
-		dr4b_lift.kg += .1;
-	}
-	if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)){
-		dr4b_lift.kg -= .1;
-	}
-	if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
-        dr4b_lift.set_target(35.0);
-    }
-	else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
-        dr4b_lift.set_target(-35.0);
-	}
-    // Inside main.cpp receiveButtons()
-	dr4b_lift.kp = std::max(0.0, dr4b_lift.kp);
-	dr4b_lift.ki = std::max(0.0, dr4b_lift.ki);
-	dr4b_lift.kd = std::max(0.0, dr4b_lift.kd);
-	dr4b_lift.kg = std::max(0.0, dr4b_lift.kg);
-	/*if(controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)){
-		dr4b_lift.use_claw();
-	}*/
-}
+
 
 void opcontrol() {
+	pros::delay(50);
 	pros::Task telemetryTask(telemetry_worker, nullptr, "Telemetry Task");
 	while(true){
 		receiveButtons();

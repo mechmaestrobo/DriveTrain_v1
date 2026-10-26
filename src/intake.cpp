@@ -1,9 +1,10 @@
+//this is where the intake class is written. the functions are written below
 #include "main.h"
 #include "intake.hpp"
 #include "devices.hpp"
 #include "config.hpp"
 Intake::Intake(){
-        int velocity;
+        int velocity = 0;
 }
 void Intake::initialize(){
     

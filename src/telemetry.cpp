@@ -1,3 +1,4 @@
+//this provides the program reading to the controller
 #include "main.h"
 #include "pros/misc.hpp"
 #include "devices.hpp"
@@ -39,11 +40,11 @@ void performReading(){
     double totalMotors = static_cast<double>(leftSpeeds.size() + rightSpeeds.size());
     double avg_speed = (leftSum + rightSum) / totalMotors;
     
-    controller.print(1, 0, "S %.0f", avg_speed);
+    controller.print(1, 0, "S %.0f ", avg_speed);
     
     pros::Task::delay(50);
     
     //controller.print(2, 0, "Battery: %.0f%%", pros::battery::get_capacity());
-    controller.print(2, 0, "P:%.2f I:%.1f D:%.1f G:%.1f", dr4b_lift.kp, dr4b_lift.ki, dr4b_lift.kd, dr4b_lift.kg);
+    controller.print(2, 0, "P:%.2f I:%.1f D:%.1f G:%.1f", dr4b_lift.kp, dr4b_lift.ki, dr4b_lift.kd);
     pros::Task::delay(50);
 }
