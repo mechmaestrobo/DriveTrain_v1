@@ -65,7 +65,7 @@ void testtune(){
     if(tmpflag == false){
         chassis.turnToHeading(90, 10000);
     }
-    else(tmpflag == true){
+    else if(tmpflag == true){
         chassis.turnToHeading(0, 10000);
     }
 }
