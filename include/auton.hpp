@@ -3,6 +3,7 @@
 void auton_initialize(void);
 void runAuton(void);
 extern lemlib::Chassis chassis;
+void testtune();
 extern double angular_kP;
 extern double angular_kI;
 extern double angular_kD;
