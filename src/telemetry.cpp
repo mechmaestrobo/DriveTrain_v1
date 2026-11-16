@@ -5,6 +5,8 @@
 #include "telemetry.hpp"
 #include "config.hpp"
 #include "dr4b_arm.hpp"
+#include "lemlib/api.hpp"
+#include "auton.hpp"
 #include <algorithm>
 #include <numeric>
 #include <vector>
@@ -23,7 +25,7 @@ void performReading(){
     double rightMax = *std::max_element(rightMotorTemps.begin(), rightMotorTemps.end());
     double max = std::max(leftMax, rightMax);
     
-    controller.print(0, 0, "dp %.1f tp %.1f", dr4b_lift.position, dr4b_lift.target_position);
+    //controller.print(0, 0, "dp %.1ftp %.1fE %.2f", dr4b_lift.position, dr4b_lift.target_position, dr4b_lift.error);
     
     if (max >= 55.0 && (currentTime - lastRumbleTime > 10000)) {
         controller.rumble("- -"); 
@@ -39,12 +41,13 @@ void performReading(){
     double rightSum = std::accumulate(rightSpeeds.begin(), rightSpeeds.end(), 0.0);
     double totalMotors = static_cast<double>(leftSpeeds.size() + rightSpeeds.size());
     double avg_speed = (leftSum + rightSum) / totalMotors;
-    
-    controller.print(1, 0, "S %.0f ", avg_speed);
+    lemlib::Pose currentPose = chassis.getPose();
+    controller.print(1, 0, "X:%.2fY:%.1fθ:%.1f", currentPose.x, currentPose.y, currentPose.theta);
+    //controller.print(1, 0, "S %.0f ", avg_speed);
     
     pros::Task::delay(50);
     
     //controller.print(2, 0, "Battery: %.0f%%", pros::battery::get_capacity());
-    controller.print(2, 0, "P:%.2f I:%.1f D:%.1f G:%.1f", dr4b_lift.kp, dr4b_lift.ki, dr4b_lift.kd);
+    controller.print(2, 0, "P:%.2f I:%.1f D:%.1f", angular_kP, angular_kI, angular_kD);
     pros::Task::delay(50);
 }

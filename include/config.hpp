@@ -8,3 +8,4 @@ extern const double dr4b_motor_rpm;
 extern const double drivetrain_motor_rpm;
 extern const double vertical_wheel_location;
 extern const double strafe_wheel_location;
+extern const double ARM_LENGTH;

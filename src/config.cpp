@@ -11,5 +11,6 @@ const double dr4b_motor_rpm = 100.0;
 const double intake_motor_rpm = 200.0;
 const double drivetrain_motor_rpm = 200.0;
 //update if necessary
-const double vertical_wheel_location = 1.0;
+const double vertical_wheel_location = 0.0;
 const double strafe_wheel_location = 2.5;
+const double ARM_LENGTH = 15.0;

@@ -14,7 +14,7 @@ extern pros::Motor wristMotor;
 extern pros::Imu imu;
 extern pros::Rotation vertical; //forward backward encoder
 extern pros::Rotation strafe; // left right encoder
-extern DR4B_ARM dr4b_lift;
+//extern DR4B_ARM dr4b_lift;
 extern Intake intake;
 extern pros::Motor intakeMotor;
 extern Claw claw;

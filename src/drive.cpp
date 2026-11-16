@@ -48,6 +48,6 @@ void runDriveTrain(){
     //calculate voltage
 	int leftVoltage = static_cast<int>(leftRaw * 12000);
     int rightVoltage = static_cast<int>(rightRaw * 12000);
-	leftMotors.move_voltage(leftVoltage);
-	rightMotors.move_voltage(rightVoltage);
+	//leftMotors.move_voltage(leftVoltage);
+	//rightMotors.move_voltage(rightVoltage);
 } 

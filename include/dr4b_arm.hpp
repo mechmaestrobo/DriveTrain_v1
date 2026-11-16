@@ -20,12 +20,17 @@ class DR4B_ARM {
     double kd;
     double target_position;
     double position;
+    double kpdown;
+    double kidown;
+    double kddown;
+    double error;
+    bool dir;
   private:
     void PID();
     
     double prev_error;
     double power;
-    double error;
+    
     double integral_sum;
     
 };

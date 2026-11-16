@@ -7,6 +7,7 @@
 #include "auton.hpp"
 #include <cmath>
 #include <algorithm>
+#include "lemlib/api.hpp"
 //will be added later
 lemlib::Drivetrain drivetrain(&leftMotors, &rightMotors, TRACK_WIDTH, lemlib::Omniwheel::NEW_325, 333, HORIZONTAL_DRIFT);
 lemlib::TrackingWheel vertical_tracking_wheel(&vertical, WHEEL_DIAMETER, vertical_wheel_location);
@@ -19,10 +20,13 @@ nullptr,
 &imu
 );
 // lateral PID
+double angular_kP = 0;
+double angular_kI = 0;
+double angular_kD = 0;
 lemlib::ControllerSettings lateral_controller(
-    10, //kP
+    0, //kP
     0, //kI
-    3, // kD
+    0, // kD
     3, // anti windup
     1, // small error range, in "
     100, // small error range timeout, in ms
@@ -33,9 +37,9 @@ lemlib::ControllerSettings lateral_controller(
 
 // angular PID
 lemlib::ControllerSettings angular_controller(
-    2, // proportional gain (kP)
-    0, // integral gain (kI)
-    10, // derivative gain (kD)
+    angular_kP, // proportional gain (kP)
+    angular_kI, // integral gain (kI)
+    angular_kD, // derivative gain (kD)
     3, // anti windup
     1, // small error range, in degrees
     100, // small error range timeout, in milliseconds
@@ -43,7 +47,25 @@ lemlib::ControllerSettings angular_controller(
     500, // large error range timeout, in milliseconds
     0 // maximum acceleration (slew)
 );
-void runAuton(){
-    
+lemlib::Chassis chassis(drivetrain, lateral_controller, angular_controller, sensors);
+bool tmpflag = false;
+void auton_initialize(){
+    imu.reset();
+    vertical.reset_position();
+    strafe.reset_position();
+    chassis.resetLocalPosition();
+    chassis.calibrate();
 
+}
+void runAuton(){
+    chassis.setPose(0, 0, 0);
+    
+}
+void testtune(){
+    if(tmpflag == false){
+        chassis.turnToHeading(90, 10000);
+    }
+    else(tmpflag == true){
+        chassis.turnToHeading(0, 10000);
+    }
 }

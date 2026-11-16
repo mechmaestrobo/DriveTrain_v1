@@ -1,5 +1,5 @@
 //the control center. all the initialization happens,edit
-//TODO: upload does not work on mine(sharan) end. issues with positional reading, lemlib initialization however no auton code written, pid not tuned. def need a lot of work
+
 #include "main.h"
 #include "devices.hpp"
 #include "auton.hpp"
@@ -27,9 +27,9 @@ void telemetry_worker(void* param){
 void initialize(){
 	initializeDrivetrain();
 	controller.clear();
-	dr4b_lift.initialize();
+	//dr4b_lift.initialize();
 	controller.rumble("-");
-	dr4b_lift.set_target(-40.0);
+	//dr4b_lift.set_target(-80.0);
 	pros::delay(50);
 }
 
@@ -46,7 +46,7 @@ void opcontrol() {
 	while(true){
 		receiveButtons();
 		runDriveTrain();
-		dr4b_lift.run_tick();
+		//dr4b_lift.run_tick();
 		pros::delay(delay_ms);
 	}
 }
