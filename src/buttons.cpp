@@ -4,7 +4,8 @@
 #include "devices.hpp"
 #include "drive.hpp"
 #include "intake.hpp"
-#include "auton.hpp"
+#include "autons_header/auton.hpp"
+#include "autons_header/auton_init.hpp"
 #include <algorithm>
 #include "main.h"
 void receiveButtons(){

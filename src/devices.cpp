@@ -16,7 +16,7 @@ pros::Motor wristMotor{20};
 pros::Imu imu(17);
 pros::Rotation vertical(15); //forward backward encoder
 pros::Rotation strafe(16); // left right encoder
-pros::Motor intakeMotor{11};
+//pros::Motor intakeMotor{11};
 //DR4B_ARM dr4b_lift;
-Intake intake;
+//Intake intake;
 Claw claw;

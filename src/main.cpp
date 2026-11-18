@@ -2,7 +2,8 @@
 
 #include "main.h"
 #include "devices.hpp"
-#include "auton.hpp"
+#include "autons_header/auton.hpp"
+#include "autons_header/auton_init.hpp"
 #include "drive.hpp"
 #include "config.hpp"
 #include "telemetry.hpp"

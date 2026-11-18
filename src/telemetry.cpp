@@ -6,12 +6,13 @@
 #include "config.hpp"
 #include "dr4b_arm.hpp"
 #include "lemlib/api.hpp"
-#include "auton.hpp"
+#include "autons_header/auton.hpp"
+#include "autons_header/auton_init.hpp"
 #include <algorithm>
 #include <numeric>
 #include <vector>
 #include <cmath>
-
+//FILE* my_file = fopen("/usd/test.txt", "w");
 void performReading(){
     
     pros::Task::delay(50);

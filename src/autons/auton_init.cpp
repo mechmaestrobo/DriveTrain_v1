@@ -1,10 +1,9 @@
-
 #include "main.h"
 #include "pros/misc.h"
 #include "drive.hpp"
 #include "devices.hpp"
 #include "config.hpp"
-#include "auton.hpp"
+#include "autons_header/auton.hpp"
 #include <cmath>
 #include <algorithm>
 #include "lemlib/api.hpp"
@@ -48,7 +47,6 @@ lemlib::ControllerSettings angular_controller(
     0 // maximum acceleration (slew)
 );
 lemlib::Chassis chassis(drivetrain, lateral_controller, angular_controller, sensors);
-bool tmpflag = false;
 void auton_initialize(){
     imu.reset();
     vertical.reset_position();
@@ -56,16 +54,4 @@ void auton_initialize(){
     chassis.resetLocalPosition();
     chassis.calibrate();
 
-}
-void runAuton(){
-    chassis.setPose(0, 0, 0);
-    
-}
-void testtune(){
-    if(tmpflag == false){
-        chassis.turnToHeading(90, 10000);
-    }
-    else if(tmpflag == true){
-        chassis.turnToHeading(0, 10000);
-    }
 }
